@@ -11,9 +11,12 @@
                 <x-button danger type="button" wire:click="deleteSelectedModal" class="ml-3">
                     <i class="fas fa-trash"></i>
                 </x-button>
+                <x-button primary type="button" wire:click="printSelectedQRCodes" class="ml-3">
+                    <i class="fas fa-qrcode"></i> {{ __('Print QR Code') }}
+                </x-button>
             @endif
             @if ($this->selectedCount)
-                <p class="text-sm leading-5">
+                <p class="p-4 text-sm leading-5 text-center">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>
@@ -30,7 +33,7 @@
             <x-label for="category" :value="__('Filter by category')" />
             <select wire:model="category_id" name="category_id" id="category_id"
                 class="w-full block py-2 px-3 ml-2 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-300 mr-3">
-                <option value="all"> {{ __('Select all') }} </option>
+                <option value="all"> {{ __('View All') }} </option>
                 @foreach ($this->categories as $index => $category)
                     <option value="{{ $index }}">{{ $category }}</option>
                 @endforeach
@@ -44,34 +47,34 @@
                 #
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
-                {{ __('Name') }}
+               {{ __('Name') }}
             </x-table.th>
-            <x-table.th>
+            {{--<x-table.th>
                 {{ __('Quantity') }}
             </x-table.th>
-            <x-table.th>
+            <x-table.th class="p-2 text-center text-gray-800 ">
                 {{ __('Price') }}
+            </x-table.th>--}}
+            <x-table.th class="p-2 text-center text-gray-800 ">
+                {{ __('Status') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Cost') }}
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('category_id')" :direction="$sorts['category_id'] ?? null">
+            <x-table.th  class="p-2 text-center text-gray-800 " sortable wire:click="sortBy('category_id')" :direction="$sorts['category_id'] ?? null">
                 {{ __('Category') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Warehouse') }}
+            <x-table.th class="p-2 text-center text-gray-800 "  >
+                {{ __('School') }}
             </x-table.th>
-            <x-table.th>
+            <x-table.th class="p-2 text-center text-gray-800 ">
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
         <x-table.tbody>
             @forelse($products as $product)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $product->id }}">
-                    <x-table.td>
+                    <x-table.td class="text-center">
                         <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800 ">
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})"
                             class="whitespace-nowrap hover:text-blue-400 active:text-blue-400">
                             {{ $product->name }} <br>
@@ -80,10 +83,10 @@
                             </x-badge>
                         </button>
                     </x-table.td>
-                    <x-table.td>{{ $product->total_quantity }}</x-table.td>
-                    <x-table.td>{{ format_currency($product->average_price) }}</x-table.td>
-                    <x-table.td>{{ format_currency($product->average_cost) }}</x-table.td>
-                    <x-table.td>
+                  {{--  <x-table.td>{{ $product->total_quantity }}</x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800 ">{{ format_currency($product->average_price) }}</x-table.td>--}}
+                    <x-table.td class="p-2 text-center text-gray-800 ">{{ $product->tax_type }}</x-table.td>
+                    <x-table.td >
                         <x-button type="button" warning x-on:click="$wire.category_id = {{ $product->category->id }}">
                             {{ $product->category->name }}
                             <small>
@@ -91,16 +94,8 @@
                             </small>
                         </x-button>
                     </x-table.td>
-                    <x-table.td>
-                        <div class="flex flex-wrap">
-                            @forelse ($product->warehouses as $warehouse)
-                                <x-badge type="info"><small>{{ $warehouse->name }}</small></x-badge>
-                            @empty
-                                {{ __('No warehouse assigned') }}
-                            @endforelse
-                        </div>
-                    </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800 ">{{ optional($product->brand)->name }}</x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800 ">
                         <x-dropdown align="right" width="56">
                             <x-slot name="trigger" class="inline-flex">
                                 <x-button primary type="button" class="text-white flex items-center">
@@ -110,11 +105,11 @@
 
                             <x-slot name="content">
                                 <x-dropdown-link wire:click="$emit('showModal',{{ $product->id }})"
-                                    wire:loading.attr="disabled">
+                                    wire:loading.attr="disabled" class="text-left ">
                                     <i class="fas fa-eye"></i>
                                     {{ __('View') }}
                                 </x-dropdown-link>
-                                @if (settings()->telegram_channel)
+                              {{-- @if (settings()->telegram_channel)
                                     <x-dropdown-link wire:click="sendTelegram({{ $product->id }})"
                                         wire:loading.attr="disabled">
                                         <i class="fas fa-paper-plane"></i>
@@ -125,14 +120,14 @@
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-paper-plane"></i>
                                     {{ __('Send to Whatsapp') }}
-                                </x-dropdown-link>
+                                </x-dropdown-link>--}}
                                 <x-dropdown-link wire:click="$emit('editModal', {{ $product->id }})"
-                                    wire:loading.attr="disabled">
+                                    wire:loading.attr="disabled" class="text-left">
                                     <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link wire:click="deleteModal({{ $product->id }})"
-                                    wire:loading.attr="disabled">
+                                    wire:loading.attr="disabled"  class="text-left">
                                     <i class="fas fa-trash"></i>
                                     {{ __('Delete') }}
                                 </x-dropdown-link>
@@ -144,7 +139,7 @@
             @empty
                 <x-table.tr>
                     <x-table.td colspan="8" class="text-center">
-                        {{ __('No products found') }}
+                        {{ __('No Item found') }}
                     </x-table.td>
                 </x-table.tr>
             @endforelse
@@ -207,3 +202,44 @@
         </x-slot>
     </x-modal>
 </div>
+@push('scripts')
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        Livewire.on('printQRCodes', function (qrCodeDataUris) {
+    // Create a temporary hidden div to hold the QR code images
+    const printContainer = document.createElement('div');
+    printContainer.style.visibility = 'hidden';
+    document.body.appendChild(printContainer);
+
+    // Add QR code images to the container
+    qrCodeDataUris.forEach(dataUri => {
+        const img = document.createElement('img');
+        img.src = dataUri;
+        printContainer.appendChild(img);
+    });
+
+    // Use html2canvas to capture the content of the container
+    html2canvas(printContainer, {
+        onrendered: function (canvas) {
+            // Convert the canvas to a data URL
+            const dataUrl = canvas.toDataURL();
+
+            // Create an iframe and set its source to the data URL
+            const iframe = document.createElement('iframe');
+            iframe.src = dataUrl;
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            document.body.appendChild(iframe);
+
+            // Initiate the printing process
+            iframe.contentWindow.print();
+
+            // Remove the iframe from the DOM after printing
+            iframe.remove();
+        }
+    });
+});
+
+    </script>
+@endpush
+

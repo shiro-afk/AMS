@@ -82,18 +82,16 @@ class Index extends Component
         return view('livewire.categories.index', compact('categories'));
     }
 
-    public function showModal(Category $category): void
-    {
-        abort_if(Gate::denies('category_access'), 403);
+    function showModal(Category $category): void
+{
+    abort_if(Gate::denies('category_access'), 403);
 
-        $this->resetErrorBag();
+    $this->resetErrorBag();
+    $this->resetValidation();
 
-        $this->resetValidation();
-
-        $this->category = Category::find($category->id);
-
-        $this->showModal = true;
-    }
+    $this->category = Category::find($category->id);
+    $this->showModal = true;
+}
 
     public function confirmed()
     {
@@ -125,9 +123,9 @@ class Index extends Component
     {
         abort_if(Gate::denies('category_delete'), 403);
         $category = Category::findOrFail($this->category);
-        
+
         if ($category->products->count() > 0) {
-            $this->alert('error', __('Category has products.'));
+            $this->alert('error', __('Category has Items.'));
         } else {
             Category::findOrFail($this->category)->delete();
             $this->alert('success', __('Category deleted successfully.'));

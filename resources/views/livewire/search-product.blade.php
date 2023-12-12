@@ -1,4 +1,4 @@
-<div class="relative mt-8" x-data="{ showScan: false }">
+{{--<div class="relative mt-8" x-data="{ showScan: false }">
     <div class="mb-3 px-2">
         <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -12,7 +12,7 @@
                 <button wire:click="resetQuery" type="button">X</button>
             </div>
         </div>
-        
+
         <div class="flex flex-wrap -mx-2 mb-3">
             <div class="lg:w-1/3 md:w-1/3 sm:w-1/2 px-2 flex items-center">
                 <div class="flex items-center space-x-2">
@@ -35,7 +35,7 @@
             </div>
 
             <div class="lg:w-1/3 md:w-1/3 sm:w-1/2 px-2">
-                <x-label for="showCount" :value="__('Product per page')" />
+                <x-label for="showCount" :value="__('Items per page')" />
                 <select wire:model="showCount"
                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                     <option value="9">9</option>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    
+
     <div class="w-full px-2 mb-4 bg-white">
         <div class="flex flex-wrap w-full">
             <div
@@ -64,7 +64,7 @@
                                 $warehouse = $product->warehouses->where('id', $warehouse_id)->first();
                                 $qty = $warehouse ? $warehouse->pivot->qty : 0;
                             @endphp
-                            {{ __('Stock') }}: {{ $qty }}
+
 
                         </div>
                         <div class="pb-3 px-3 text-sm -mt-3">
@@ -94,7 +94,7 @@
                             </svg>
                         </span>
                         <span class="inline-block align-middle mr-8">
-                            {{ __('No product found') }}
+                            {{ __('No Item found') }}
                         </span>
                     </div>
                 @endforelse
@@ -171,4 +171,8 @@
             showScan = false;
         });
     </script>
-@endpush
+@endpush--}}
+<div class="relative mt-8" x-data="{ showScan: false }">
+
+</div>
+

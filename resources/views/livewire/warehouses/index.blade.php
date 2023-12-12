@@ -31,18 +31,19 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>
-                <input type="checkbox" wire:model="selectPage" />
+                {{--<input type="checkbox" wire:model="selectPage" />--}}
             </x-table.th>
-            <x-table.th>
-                {{ __('Name') }}
+            <x-table.th >
+                <div class=" text-left text-xs font-medium uppercase tracking-wider bg-gray-100 text-black">
+                {{ __('Name') }}</div>
             </x-table.th>
-            <x-table.th>
-                {{ __('Products Quantity') }}
+            <x-table.th class="p-2 text-center text-gray-800 ">
+                {{ __('Item Quantity') }}
             </x-table.th>
-            <x-table.th>
+           {{-- <x-table.th>
                 {{ __('Stock Value') }}
-            </x-table.th>
-            <x-table.th>
+            </x-table.th>--}}
+            <x-table.th class="p-2 text-center text-gray-800 ">
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -51,21 +52,21 @@
 
             @forelse($warehouses as $warehouse)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $warehouse->id }}">
-                    <x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800">
                         <input type="checkbox" value="{{ $warehouse->id }}" wire:model="selected">
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="p-2 text-left text-gray-800">
                         {{ $warehouse->name }} - {{ $warehouse->phone }}
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800">
                         {{ $warehouse->total_quantity }}
                     </x-table.td>
-                    <x-table.td>
+                   {{-- <x-table.td>
                         {{ format_currency($warehouse->stock_value) }}
-                    </x-table.td>
-                    <x-table.td>
-                        <div class="flex justify-start space-x-2">
-                            <x-button info type="button" wire:click="editModal({{ $warehouse->id }})"
+                    </x-table.td>--}}
+                    <x-table.td >
+                        <div class="p-2 text-center text-gray-800 ">
+                            <x-button class="p-2 text-left text-gray-800p-2 text-left text-gray-800" info type="button" wire:click="editModal({{ $warehouse->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
@@ -95,7 +96,7 @@
 
     <x-modal wire:model="editModal">
         <x-slot name="title">
-            {{ __('Edit Warehouse') }}
+            {{ __('Edit School') }}
         </x-slot>
         <x-slot name="content">
             <form wire:submit.prevent="update">
@@ -135,9 +136,9 @@
                         </div>
                     </x-accordion>
                     <div class="w-full px-3">
-                        <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                        <button primary type="submit" class="w-full text-center bg-indigo-500 text-white py-2 px-3 rounded" wire:loading.attr="disabled">
                             {{ __('Update') }}
-                        </x-button>
+                        </button>
                     </div>
                 </div>
             </form>

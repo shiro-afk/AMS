@@ -33,9 +33,9 @@ class Create extends Component
 
     public $phone;
 
-    public $role;
+    //public $role;
 
-    public $warehouse_id;
+    //public $warehouse_id;
 
     /** @var array */
     protected $rules = [
@@ -43,8 +43,8 @@ class Create extends Component
         'email'        => 'required|email|unique:users,email',
         'password'     => 'required|string|min:8',
         'phone'        => 'required|numeric',
-        'role'         => 'required',
-        'warehouse_id' => 'required|array',
+       // 'role'         => 'required',
+        //'warehouse_id' => 'required|array',
     ];
 
     public function updated($propertyName): void
@@ -73,20 +73,20 @@ class Create extends Component
 
             $user = User::create($validatedData);
 
-            $user->assignRole($this->role);
+            //$user->assignRole($this->role);
 
-            foreach ($this->warehosues_id as $warehouseId) {
-                UserWarehouse::create([
-                    'user_id'      => $user->id,
-                    'warehouse_id' => $warehouseId,
-                ]);
-            }
+           // foreach ($this->warehosues_id as $warehouseId) {
+            //    UserWarehouse::create([
+             //       'user_id'      => $user->id,
+              //      'warehouse_id' => $warehouseId,
+            //    ]);
+           // }
 
             $this->alert('success', __('User created successfully!'));
 
             $this->emit('refreshIndex');
 
-            $this->reset('name', 'email', 'password', 'phone', 'role', 'warehouse_id');
+            $this->reset('name', 'email', 'password', 'phone',/* 'role'/* 'warehouse_id'*/);
 
             $this->createModal = false;
         } catch (Throwable $th) {
@@ -94,7 +94,7 @@ class Create extends Component
         }
     }
 
-    public function getRolesProperty()
+   /* public function getRolesProperty()
     {
         return Role::pluck('name', 'id')->toArray();
     }
@@ -102,5 +102,5 @@ class Create extends Component
     public function getWarehousesProperty()
     {
         return Warehouse::pluck('name', 'id')->toArray();
-    }
+    }*/
 }

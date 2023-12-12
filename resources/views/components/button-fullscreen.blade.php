@@ -1,6 +1,6 @@
-<x-button type="button" secondary id="fullScreen">
+{{--<x-button type="button" secondary id="fullScreen">
     <i class="fa fa-expand w-4 h-4"></i>
-</x-button>
+</x-button>--}}
 
 @push('scripts')
     <script>

@@ -41,6 +41,9 @@ use App\Http\Controllers\DocsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Language\EditTranslation;
 use Illuminate\Support\Facades\View;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/products/print-barcode', [BarcodeController::class, 'index'])->name('barcode.print');
 
     //Product Category
-    Route::get('product-categories', CategoriesController::class)->name('product-categories.index');
+    Route::get('item-categories', CategoriesController::class)->name('product-categories.index');
 
     Route::get('/products', ProductController::class)->name('products');
 
@@ -223,4 +226,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Integrations
     Route::get('/integrations', IntegrationController::class)->name('integrations.index');
+    Route::get('/qrcode', [QrCodeController::class, 'index']);
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+
+    //Chart
+    Route::get('/pie-chart', [ChartController::class, 'showPieChart']);
 });

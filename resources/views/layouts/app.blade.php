@@ -57,7 +57,7 @@
                     @isset($slot)
                         {{ $slot }}
                     @endisset
-                    <x-settings-bar />
+                   {{-- <x-settings-bar /> --}}
 
                 </main>
 
@@ -72,6 +72,6 @@
     @include('includes.main-js')
     @vite('resources/js/app.js')
 
-  
+
 </body>
 </html>

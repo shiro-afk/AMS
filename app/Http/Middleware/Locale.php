@@ -8,6 +8,8 @@ use App\Models\Language;
 use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Controllers\UserController;
+
 
 class Locale
 {

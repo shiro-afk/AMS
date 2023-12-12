@@ -1,7 +1,7 @@
 @props([
-    'type' => null, 'href' => '#', 'primary' => false, 
-    'secondary' => false, 'info'=> false, 'alert' => false, 
-    'success' => false,'danger' => false, 'warning' => false, 
+    'type' => null, 'href' => '#', 'primary' => false,
+    'secondary' => false, 'info'=> false, 'alert' => false,
+    'success' => false,'danger' => false, 'warning' => false,
      'primaryOutline' => false,'secondaryOutline' => false,
     'infoOutline' => false,'successOutline' => false,
     'alertOutline' => false,'dangerOutline' => false,
@@ -9,7 +9,7 @@
     ])
 
 @php
-    $classes = 
+    $classes =
         ($primary ? 'bg-indigo-500 border border-transparent text-white hover:bg-indigo-600 focus:ring-indigo-500 active:bg-indigo-900 focus:outline-none focus:border-indigo-900' : '') .
         ($secondary ? 'bg-gray-500 border border-transparent text-white hover:bg-gray-600 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900' : '') .
         ($info ? 'bg-blue-500 border border-transparent text-white hover:bg-blue-600 focus:ring-blue-500 active:bg-blue-900 focus:outline-none focus:border-blue-900' : '') .

@@ -30,9 +30,9 @@ class Edit extends Component
 
     public $phone;
 
-    public $role;
+   // public $role;
 
-    public $warehouse_id;
+    //public $warehouse_id;
 
     /** @var array */
     protected $rules = [
@@ -40,8 +40,8 @@ class Edit extends Component
         'email'        => 'required|email',
         'password'     => 'required|string|min:8',
         'phone'        => 'required|numeric',
-        'role'         => 'required',
-        'warehouse_id' => 'required|array',
+       // 'role'         => 'required',
+        //'warehouse_id' => 'required|array',
     ];
 
     public function editModal($id)
@@ -88,7 +88,7 @@ class Edit extends Component
         return view('livewire.users.edit');
     }
 
-    public function getRolesProperty()
+    /*public function getRolesProperty()
     {
         return Role::pluck('name', 'id')->toArray();
     }
@@ -96,5 +96,5 @@ class Edit extends Component
     public function getWarehousesProperty()
     {
         return Warehouse::pluck('name', 'id')->toArray();
-    }
+    }*/
 }

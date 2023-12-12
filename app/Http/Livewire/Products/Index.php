@@ -19,6 +19,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class Index extends Component
 {
@@ -50,6 +52,45 @@ class Index extends Component
     public $selectAll;
 
     public $category_id;
+    public function generateQrCode($product)
+{
+    // Define data to be included in the QR code
+    $qrData = [
+        'ID' => $product->id,
+        'Name' => $product->name,
+        'Status' => $product->status,
+    ];
+
+    // Generate QR code data URI
+    $qrCodeDataUri = QrCode::size(300)->generate(json_encode($qrData));
+
+    return $qrCodeDataUri;
+}
+
+public function printSelectedQRCodes()
+{
+    if (empty($this->selected)) {
+        $this->alert('info', __('No products selected for printing QR codes.'));
+        return;
+    }
+
+    $qrCodeDataUris = [];
+
+    foreach ($this->selected as $productId) {
+        $product = Product::findOrFail($productId);
+
+        // Generate QR code data URI for the selected product
+        $qrCodeDataUri = $this->generateQrCode($product);
+
+        // Add the QR code data URI to the array
+        $qrCodeDataUris[] = $qrCodeDataUri;
+    }
+
+    // Pass the QR code data URIs to the Livewire view
+    $this->emit('printQRCodes', $qrCodeDataUris);
+
+    $this->alert('success', __('QR codes for selected products generated. Initiating printing process.'));
+}
 
     public function updatedCategoryId($value)
     {
@@ -141,7 +182,7 @@ class Index extends Component
         abort_if(Gate::denies('product_delete'), 403);
 
         $product = Product::findOrFail($this->product);
-        
+
         $productWarehouse = ProductWarehouse::where('product_id', $product->id)->first();
 
         if ($productWarehouse) {

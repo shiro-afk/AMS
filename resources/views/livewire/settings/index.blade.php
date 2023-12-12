@@ -4,13 +4,13 @@
             <div class="flex flex-col space-y-2">
                 <button @click="tab = 'company'" :class="{ 'bg-indigo-500 text-white': tab === 'company' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
-                    {{ __('Company Info') }}
+                    {{ __('Department Info') }}
                 </button>
                 <button @click="tab = 'system'" :class="{ 'bg-indigo-500 text-white': tab === 'system' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('System Configuration') }}
                 </button>
-                <button @click="tab = 'invoice'" :class="{ 'bg-indigo-500 text-white': tab === 'invoice' }"
+                {{-- <button @click="tab = 'invoice'" :class="{ 'bg-indigo-500 text-white': tab === 'invoice' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Invoice Configuration') }}
                 </button>
@@ -21,7 +21,7 @@
                 <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'messaging' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Messaging') }}
-                </button>
+                </button>--}}
             </div>
         </div>
         <div class="w-3/4 px-4">
@@ -29,23 +29,23 @@
             <form wire:submit.prevent="update">
                 <div x-show="tab === 'company'">
                     <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
-                        <h2>{{ __('Company Info') }}</h2>
+                        <h2>{{ __('Department Info') }}</h2>
                     </div>
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="w-full md:w-1/3 px-3 mb-4">
-                            <x-label for="company_name" :value="__('Company Name')" required />
+                            <x-label for="company_name" :value="__('Department Name')" required />
                             <x-input type="text" wire:model.defer="settings.company_name" id="company_name"
                                 name="company_name" required />
                             <x-input-error :messages="$errors->get('settings.company_name')" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-4">
-                            <x-label for="company_email" :value="__('Company Email')" required />
+                            <x-label for="company_email" :value="__('Department Email')" required />
                             <x-input type="email" wire:model.defer="settings.company_email" id="company_email"
                                 name="company_email" required />
                             <x-input-error :messages="$errors->get('settings.company_email')" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-4">
-                            <x-label for="company_phone" :value="__('Company Phone')" required />
+                            <x-label for="company_phone" :value="__('Department Phone')" required />
                             <x-input type="text" wire:model.defer="settings.company_phone" id="company_phone"
                                 name="company_phone" required />
                             <x-input-error :messages="$errors->get('settings.company_phone')" class="mt-2" />
@@ -58,26 +58,26 @@
                             <x-input-error :messages="$errors->get('settings.company_address')" class="mt-2" />
                         </div>
 
-                        <div class="w-full md:w-1/3 px-3 mb-4">
+                       {{-- <div class="w-full md:w-1/3 px-3 mb-4">
                             <x-label for="company_tax" :value="__('Company Tax')" />
                             <x-input type="text" wire:model.defer="settings.company_tax" id="company_tax"
                                 name="company_tax" />
                             <x-input-error :messages="$errors->get('settings.company_tax')" class="mt-2" />
                         </div>
-
-                        <div class="w-full md:w-1/3 px-3 mb-4">
+                            --}}
+                        {{-- <div class="w-full md:w-1/3 px-3 mb-4">
                             <x-label for="telegram_channel" :value="__('Telegram Channel')" />
                             <x-input type="text" wire:model.defer="settings.telegram_channel" id="telegram_channel"
                                 name="telegram_channel" />
                             <x-input-error :messages="$errors->get('settings.telegram_channel')" class="mt-2" />
                         </div>
-
-                        <div class="w-full px-2">
+                        --}}
+                       {{-- <div class="w-full px-2">
                             <x-label for="company_logo" :value="__('Company Logo')" />
                             <x-fileupload wire:model="company_logo" :file="$company_logo"
                                 accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('company_logo')" for="company_logo" class="mt-2" />
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="mb-4 w-full">
                         <x-button type="submit" wire:click="update" primary class="w-full text-center">
@@ -130,18 +130,18 @@
                             </select>
                         </div>
 
-                        <div class="w-full md:w-1/3 px-3 mb-4">
+                        {{--<div class="w-full md:w-1/3 px-3 mb-4">
                             <x-label for="default_client_id" :value="__('Default customer')" />
                             <x-select-list wire:model.defer="settings.default_client_id" id="default_client_id"
                                 name="default_client_id" :options="$this->listsForFields['customers']" r />
-                        </div>
+                        </div>--}}
 
-                        <div class="w-full md:w-1/3 px-3 mb-4">
+                       {{-- <div class="w-full md:w-1/3 px-3 mb-4">
                             <x-label for="default_warehouse_id" :value="__('Default Warehouse')" />
                             <x-select-list wire:model.defer="settings.default_warehouse_id" id="default_warehouse_id"
                                 name="default_warehouse_id" :options="$this->listsForFields['warehouses']" />
-                        </div>
-                        <div class="w-full flex justify-center p-4 space-x-4">
+                        </div>--}}
+                        {{--<div class="w-full flex justify-center p-4 space-x-4">
                             <div>
                                 <x-label for="show_email" :value="__('Show Email')" required />
                                 <input type="checkbox" name="show_email" id="show_email"
@@ -167,7 +167,7 @@
                                 <input type="checkbox" name="show_shipping" id="show_shipping"
                                     {{ $settings->show_shipping ? 'checked' : '' }}>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="mb-4 w-full">
                         <x-button type="submit" wire:click="update" primary class="w-full text-center">
@@ -175,7 +175,7 @@
                         </x-button>
                     </div>
                 </div>
-                <div x-show="tab === 'invoice'">
+               <div x-show="tab === 'invoice'">
                     <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
                         <h2>{{ __('Invoice Configuration') }}</h2>
                     </div>
@@ -247,22 +247,22 @@
                     </div>
                 </div>
             </form>
-            <div x-show="tab === 'mail'">
+            {{--<div x-show="tab === 'mail'">
                 <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
                     <h2>{{ __('Mail Configuration') }}</h2>
                 </div>
                 <div class="w-full px-2">
                     <livewire:settings.smtp />
                 </div>
-            </div>
-            <div x-show="tab === 'messaging'">
+            </div>--}}
+            {{--<div x-show="tab === 'messaging'">
                 <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
                     <h2>{{ __('Messaging') }}</h2>
                 </div>
                 <div class="w-full px-2">
                     <livewire:settings.messaging />
                 </div>
-            </div>
+            </div>--}}
         </div>
     </div>
 </div>

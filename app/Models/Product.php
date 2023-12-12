@@ -59,6 +59,7 @@ class Product extends Model
         'order_tax',
         'tax_type',
         'note',
+        'qrcode_path',
     ];
 
     public function __construct(array $attributes = [])
@@ -79,6 +80,7 @@ class Product extends Model
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
+
     }
 
     public function movements(): MorphMany

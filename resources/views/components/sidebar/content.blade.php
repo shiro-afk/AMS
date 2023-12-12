@@ -9,7 +9,7 @@
     </x-sidebar.link>
     @can('product_access')
 
-    <x-sidebar.dropdown title="{{ __('Products') }}" :active="request()->routeIs([
+    <x-sidebar.dropdown title="{{ __('Items') }}" :active="request()->routeIs([
         'products.*',
         'product-categories.index',
         'barcode.print',
@@ -28,25 +28,25 @@
             <x-sidebar.sublink title="{{ __('Categories') }}" href="{{ route('product-categories.index') }}"
                 :active="request()->routeIs('product-categories.index')" />
         @endcan
-            <x-sidebar.sublink title="{{ __('All Products') }}" href="{{ route('products') }}" :active="request()->routeIs('products')" />
-        @can('print_barcodes')
-            <x-sidebar.sublink title="{{ __('Print Barcode') }}" href="{{ route('barcode.print') }}" :active="request()->routeIs('barcode.print')" />
-        @endcan
+            <x-sidebar.sublink title="{{ __('All Items') }}" href="{{ route('products') }}" :active="request()->routeIs('products')" />
+        {{--@can('print_barcodes')
+            <x-sidebar.sublink title="{{ __('Print QR Codes') }}" href="{{ route('barcode.print') }}" :active="request()->routeIs('barcode.print')" />
+        @endcan--}}
         @can('brand_access')
-            <x-sidebar.sublink title="{{ __('Brands') }}" href="{{ route('brands.index') }}" :active="request()->routeIs('product-brands.index')" />
+            <x-sidebar.sublink title="{{ __('Schools') }}" href="{{ route('brands.index') }}" :active="request()->routeIs('product-brands.index')" />
         @endcan
-        @can('warehouse_access')
-            <x-sidebar.sublink title="{{ __('Warehouses') }}" href="{{ route('warehouses.index') }}" :active="request()->routeIs('warehouses.index')" />
-        @endcan
+       {{-- @can('warehouse_access')
+            <x-sidebar.sublink title="{{ __('School') }}" href="{{ route('warehouses.index') }}" :active="request()->routeIs('warehouses.index')" />
+       @endcan
         @can('adjustment_access')
             <x-sidebar.sublink title="{{ __('Stock adjustments') }}" href="{{ route('adjustments.index') }}"
                 :active="request()->routeIs('adjustments.index')" />
-        @endcan
+        @endcan--}}
 
     </x-sidebar.dropdown>
     @endcan
 
-    @can('quotation_access')
+   {{-- @can('quotation_access')
         <x-sidebar.dropdown title="{{ __('Quotations') }}" :active="request()->routeIs('quotations.index')">
 
             <x-slot name="icon">
@@ -106,7 +106,7 @@
             @endcan
             <x-sidebar.sublink title="{{ __('All Expenses') }}" href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.index')" />
         </x-sidebar.dropdown>
-    @endcan
+    @endcan--}}
 
     @can('report_access')
         <x-sidebar.dropdown title="{{ __('Reports') }}" :active="request()->routeIs([
@@ -123,9 +123,9 @@
                 </span>
             </x-slot>
 
-            <x-sidebar.sublink title="{{ __('Purchases Report') }}" href="{{ route('purchases-report.index') }}"
+            <x-sidebar.sublink title="{{ __('Report') }}" href="{{ route('purchases-report.index') }}"
                 :active="request()->routeIs('purchases-report.index')" />
-            <x-sidebar.sublink title="{{ __('Sale Report') }}" href="{{ route('sales-report.index') }}"
+           {{-- <x-sidebar.sublink title="{{ __('Sale Report') }}" href="{{ route('sales-report.index') }}"
                 :active="request()->routeIs('sales-report.index')" />
             <x-sidebar.sublink title="{{ __('Sale Return Report') }}" href="{{ route('sales-return-report.index') }}"
                 :active="request()->routeIs('sales-return-report.index')" />
@@ -134,12 +134,12 @@
             <x-sidebar.sublink title="{{ __('Purchases Return Report') }}"
                 href="{{ route('purchases-return-report.index') }}" :active="request()->routeIs('purchases-return-report.index')" />
             <x-sidebar.sublink title="{{ __('Profit Report') }}" href="{{ route('profit-loss-report.index') }}"
-                :active="request()->routeIs('profit-loss-report.index')" />
+                :active="request()->routeIs('profit-loss-report.index')" />--}}
 
         </x-sidebar.dropdown>
     @endcan
 
-    @can('user_access')
+   @can('user_access')
         <x-sidebar.dropdown title="{{ __('People') }}" :active="request()->routeIs('customers.*') ||
             request()->routeIs('customer-group.*') ||
             request()->routeIs('suppliers.*') ||
@@ -152,7 +152,7 @@
                 </span>
             </x-slot>
             <x-sidebar.sublink title="{{ __('Users') }}" href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" />
-            @can('customer_access')
+            {{--@can('customer_access')
                 <x-sidebar.sublink title="{{ __('Customers') }}" href="{{ route('customers.index') }}" :active="request()->routeIs('customers.index')" />
             @endcan
             @can('customer_group_access')
@@ -167,7 +167,7 @@
             @can('access_permissions')
                 <x-sidebar.sublink title="{{ __('Permissions') }}" href="{{ route('permissions.index') }}"
                     :active="request()->routeIs('permissions.index')" />
-            @endcan
+            @endcan--}}
         </x-sidebar.dropdown>
     @endcan
     @can('access_settings')
@@ -187,7 +187,7 @@
             @can('log_access')
                 <x-sidebar.sublink title="{{ __('Logs') }}" href="{{ route('logs.index') }}" :active="request()->routeIs('logs.index')" />
             @endcan
-            @can('currency_access')
+           {{-- @can('currency_access')
                 <x-sidebar.sublink title="{{ __('Currencies') }}" href="{{ route('currencies.index') }}" :active="request()->routeIs('currencies.index')" />
             @endcan
             @can('language_access')
@@ -195,7 +195,7 @@
             @endcan
             @can('backup_access')
                 <x-sidebar.sublink title="{{ __('Backup') }}" href="{{ route('backup.index') }}" :active="request()->routeIs('backup.index')" />
-            @endcan
+            @endcan--}}
 
         </x-sidebar.dropdown>
     @endcan

@@ -2,7 +2,7 @@
     <!-- Show Modal -->
     <x-modal wire:model="showModal">
         <x-slot name="title">
-            {{ __('Show Product') }} - {{ $product?->code }}
+            {{ __('Show Item') }} - {{ $product?->code }}
         </x-slot>
 
         <x-slot name="content">
@@ -26,7 +26,29 @@
                             </div>
                         @endif
                         <div class="flex justify-center w-full px-3 ">
-                            {!! \Milon\Barcode\Facades\DNS1DFacade::getBarCodeSVG($product?->code, $product?->barcode_symbology, 2, 110) !!}
+                            <!-- Concatenate Product Code and Name -->
+                            @if ($product)
+                            @php
+                                $combinedData = 'Serial Number: ' . $product->code . "\n" .
+                                                'Item Name: ' . $product->name . "\n" .
+                                                'Category: ' . $product->category->name . "\n";
+
+                                // Add tax type information
+                                $combinedData .= 'Status: ' . ($product->tax_type ?? 'N/A');
+                                $combinedData .= "\nSchool: " . (optional($product->brand)->name);
+                                $combinedData .= "\nUnits: " . ($product->unit);
+
+                                // Add warehouse information
+
+
+                                $combinedData .= "\nRemarks: " . ($product->note ?? 'N/A');
+                            @endphp
+
+                            <!-- Display QR Code -->
+                            {!! QrCode::size(150)->encoding('UTF-8')->generate($combinedData); !!}
+                        @endif
+
+
                         </div>
                     </div>
                 @endif
@@ -38,12 +60,7 @@
                                 {{ __('Details') }}
                             </h4>
                         </div>
-                        <div class="text-center font-bold text-gray-500 uppercase mb-2 cursor-pointer"
-                            @click="activeTabs = 'productMovements'">
-                            <h4 class="inline-block" :class="activeTabs === 'productMovements' ? 'text-red-400' : ''">
-                                {{ __('Movements') }}
-                            </h4>
-                        </div>
+
                     </div>
                     <div x-show="activeTabs === 'productDetails'">
                         <div role="productDetails" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
@@ -51,22 +68,23 @@
                                 <x-table-responsive>
                                     <x-table.tr>
                                         <x-table.th>{{ __('Product Code') }}</x-table.th>
-                                        <x-table.td>{{ $product?->code }}</x-table.td>
+                                        <x-table.td class="p-3 text-left text-gray-800">{{ $product?->code }}</x-table.td>
                                     </x-table.tr>
-                                    <x-table.tr>
+                                    {{--<x-table.tr>
                                         <x-table.th>{{ __('Barcode Symbology') }}</x-table.th>
                                         <x-table.td>{{ $product?->barcode_symbology }}</x-table.td>
-                                    </x-table.tr>
+                                    </x-table.tr>--}}
                                     <x-table.tr>
                                         <x-table.th>{{ __('Name') }}</x-table.th>
-                                        <x-table.td>{{ $product?->name }}</x-table.td>
+                                        <x-table.td class="p-3 text-left text-gray-800">{{ $product?->name }}</x-table.td>
                                     </x-table.tr>
                                     <x-table.tr>
                                         <x-table.th>{{ __('Category') }}</x-table.th>
-                                        <x-table.td>{{ $product?->category->name }}</x-table.td>
+                                        <x-table.td class="p-3 text-left text-gray-800">{{ $product?->category->name }}</x-table.td>
                                     </x-table.tr>
-                                    <x-table.th>{{ __('Warehouse') }}</x-table.th>
-                                    <x-table.td>
+                                    <x-table.th>{{ __('School') }}</x-table.th>
+                                    <x-table.td class="p-3 text-left text-gray-800">{{ optional($product->brand)->name }}</x-table.td>
+                                         {{-- <x-table.td>
                                         <div class="flex flex-wrap">
                                             @if ($product?->warehouses)
                                             @forelse ($product->warehouses as $warehouse)
@@ -74,16 +92,16 @@
                                                     <p class="font-medium">{{ $warehouse->name }}</p>
                                                     <p class="text-sm">{{ __('Quantity') }}:
                                                         {{ $warehouse->pivot->qty }} {{ $product->unit }}</p>
-                                                    <p class="text-sm">{{ __('Cost') }}:
+                                                  {{--  <p class="text-sm">{{ __('Cost') }}:
                                                         {{ format_currency($warehouse->pivot->cost) }}</p>
                                                     <p class="text-sm">{{ __('Price') }}:
                                                         {{ format_currency($warehouse->pivot->price) }}</p>
-                                                    <p class="text-sm">{{ __('Stock Worth') }}:
+                                                {{--    <p class="text-sm">{{ __('Stock Worth') }}:
                                                         {{ format_currency($warehouse->pivot->cost * $warehouse->pivot->qty) }}
                                                     </p>
                                                 </div>
                                             @empty
-                                                {{ __('No warehouse assigned') }}
+                                                {{ __('No School assigned') }}
                                             @endforelse
                                             @endif
                                         </div>
@@ -95,22 +113,22 @@
                                     <x-table.tr>
                                         <x-table.th>{{ __('Tax (%)') }}</x-table.th>
                                         <x-table.td>{{ $product?->order_tax ?? 'N/A' }}</x-table.td>
+                                    </x-table.tr>--}}
+                                    <x-table.tr>
+                                        <x-table.th>{{ __('Status') }}</x-table.th>
+                                        <x-table.td class="p-3 text-left text-gray-800">
+                                            {{$product->tax_type ?? 'N/A'}}
+                                        </x-table.td>
                                     </x-table.tr>
                                     <x-table.tr>
-                                        <x-table.th>{{ __('Tax Type') }}</x-table.th>
-                                        <x-table.td>
-                                            @if ($product?->tax_type == 1)
-                                                {{ __('Exclusive') }}
-                                            @elseif($product?->tax_type == 2)
-                                                {{ __('Inclusive') }}
-                                            @else
-                                                N/A
-                                            @endif
+                                        <x-table.th>{{ __('Units') }}</x-table.th>
+                                        <x-table.td class="p-3 text-left text-gray-800">
+                                            {{$product->unit?? 'N/A'}}
                                         </x-table.td>
                                     </x-table.tr>
                                     <x-table.tr>
                                         <x-table.th>{{ __('Description') }}</x-table.th>
-                                        <x-table.td>{{ $product?->note ?? 'N/A' }}</x-table.td>
+                                        <x-table.td class="p-3 text-left text-gray-800">{{ $product?->note ?? 'N/A' }}</x-table.td>
                                     </x-table.tr>
                                 </x-table-responsive>
                             </div>

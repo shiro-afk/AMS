@@ -33,15 +33,16 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>
-                <input wire:model="selectPage" type="checkbox" />
+
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
+            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null" >
                 {{ __('Name') }}
             </x-table.th>
-            <x-table.th>
+            <x-table.th class="text-center">
                 {{ __('Description') }}
             </x-table.th>
-            <x-table.th>
+
+            <x-table.th class="text-center">
                 {{ __('Actions') }}
             </x-table.th>
             </tr>
@@ -49,18 +50,19 @@
         <x-table.tbody>
             @forelse($brands as $brand)
                 <x-table.tr>
-                    <x-table.td>
+                    <x-table.td  class="text-center">
                         <input type="checkbox" value="{{ $brand->id }}" wire:model="selected">
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td >
                         {{ $brand->name }}
                     </x-table.td>
-                    <x-table.td class="whitespace-nowrap break-words">
+                    <x-table.td class="whitespace-nowrap break-words text-center">
                         {{ Str::limit($brand->description, 50, '...') }}
                     </x-table.td>
 
-                    <x-table.td>
-                        <div class="flex justify-start space-x-2">
+
+                    <x-table.td class="text-center">
+                        <div class="text-center space-x-2">
                             @can('brand_update')
                                 <x-button primary wire:click="$emit('editModal', {{ $brand->id }})" type="button"
                                     wire:loading.attr="disabled">

@@ -8,6 +8,7 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Brand extends Model
 {
@@ -34,4 +35,5 @@ class Brand extends Model
     {
         return $this->hasMany(Product::class, 'brand_id', 'id');
     }
+
 }

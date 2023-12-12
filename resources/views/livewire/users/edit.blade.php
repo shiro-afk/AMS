@@ -22,7 +22,7 @@
                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                     </div>
 
-                    <div class="md:w-1/2 sm:w-full px-3">
+                   {{-- <div class="md:w-1/2 sm:w-full px-3">
                         <x-label for="role" :value="__('Role')" />
                         <x-select-list
                             class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
@@ -36,7 +36,7 @@
                             required id="warehouse_id" name="warehouse_id" wire:model="warehouse_id"
                             :options="$this->warehouses" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
+                    </div>--}}
                     <div class="md:w-1/2 sm:w-full px-3">
                         <x-label for="password" :value="__('Password')" />
                         <x-input id="password" name="password" class="block mt-1 w-full" type="password"

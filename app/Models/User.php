@@ -16,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\User;
 
 class User extends Authenticatable
 {
@@ -45,7 +46,7 @@ class User extends Authenticatable
     protected $fillable = [
         'uuid', 'id', 'name', 'email', 'password', 'avatar',
         'phone', 'role_id', 'status', 'is_all_warehouses',
-        'created_at', 'updated_at', 'wallet_id',
+        'created_at', 'updated_at', 'wallet_id','is_active',
     ];
 
     /**
@@ -65,6 +66,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean',
     ];
 
     /**

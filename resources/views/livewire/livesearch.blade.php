@@ -133,14 +133,15 @@
         @endif
     </div>
     <div class="flex flex-wrap my-2 gap-2">
-        <x-chips label="{{ __('Products') }}" shade="dark" color="red" />
+        {{--<x-chips label="{{ __('Items') }}" shade="dark" color="red" />
+
+        <x-chips label="{{ __('School') }}" shade="dark" color="green" />
 
         <x-chips label="{{ __('Customers') }}" shade="dark" color="yellow" />
 
-        <x-chips label="{{ __('Suppliers') }}" shade="dark" color="green" />
 
         <x-chips label="{{ __('Sales') }}" shade="dark" color="blue" />
 
-        <x-chips label="{{ __('Purchases') }}" shade="dark" color="cyan" />
+        <x-chips label="{{ __('Purchases') }}" shade="dark" color="cyan" />--}}
     </div>
 </div>

@@ -58,7 +58,7 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button info type="button" 
+                            <x-button info type="button"
                                 wire:click="showModal({{ $expenseCategory->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-eye"></i>
@@ -124,7 +124,7 @@
     </x-modal>
 
     <livewire:expense-categories.create />
-    
-    
-    
+
+
+
 </div>

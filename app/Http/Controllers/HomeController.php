@@ -19,11 +19,14 @@ use App\Models\SaleReturnPayment;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $categories = Category::with('products')->get();
         $sales = Sale::completed()->sum('total_amount');
         $sale_returns = SaleReturn::completed()->sum('total_amount');
         $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
@@ -58,13 +61,8 @@ class HomeController extends Controller
             ],
         ];
 
-        return view('admin.home', [
-            'revenue'          => $revenue,
-            'sale_returns'     => $sale_returns / 100,
-            'purchase_returns' => $purchase_returns / 100,
-            'profit'           => $profit,
-            'data'             => $data,
-        ]);
+        return view('admin.home', compact('categories'));
+
     }
 
     public function currentMonthChart()

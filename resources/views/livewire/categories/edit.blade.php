@@ -23,9 +23,9 @@
                         <x-input-error :messages="$errors->get('category.name')" for="name" class="mt-2" />
                     </div>
                     <div class="w-full">
-                        <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                        <button primary type="submit" class="w-full text-center bg-indigo-500 text-white py-2 px-3 rounded" wire:loading.attr="disabled">
                             {{ __('Update') }}
-                        </x-button>
+                        </button>
                     </div>
                 </div>
             </form>

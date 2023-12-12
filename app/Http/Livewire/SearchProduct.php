@@ -46,12 +46,9 @@ class SearchProduct extends Component
 
     public function selectProduct($product)
     {
-        if ($this->warehouse_id !== null) {
-            $this->emit('productSelected', $product);
-        } else {
-            $this->alert('error', __('Please select a warehouse!'));
-        }
+        $this->emit('productSelected', $product);
     }
+
 
     public function updatedWarehouseId($value)
     {

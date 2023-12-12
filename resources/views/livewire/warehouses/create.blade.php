@@ -1,7 +1,7 @@
 <div>
     <x-modal wire:model="createModal">
         <x-slot name="title">
-            {{ __('Create Warehouse') }}
+            {{ __('Add School') }}
         </x-slot>
         <x-slot name="content">
             <x-validation-errors class="mb-4" :errors="$errors" />
@@ -42,9 +42,9 @@
                         </div>
                     </x-accordion>
                     <div class="w-full flexpx-3">
-                        <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                        <button primary type="submit" class="w-full text-center bg-indigo-500 text-white py-2 px-3 rounded" wire:loading.attr="disabled">
                             {{ __('Create') }}
-                        </x-button>
+                        </button>
                     </div>
                 </div>
             </form>

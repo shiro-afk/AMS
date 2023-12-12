@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use Illuminate\Auth\Events\Login as AuthLogin; // Alias the Login class
+use Illuminate\Http\Request; // Import the Request class
 
 class Login extends Component
 {
@@ -25,8 +27,7 @@ class Login extends Component
         'email'    => 'required|email',
         'password' => 'required',
     ];
-
-    /**
+ /**
      * Attempt to authenticate the request's credentials.
      *
      * @return void
@@ -39,7 +40,7 @@ class Login extends Component
 
         $this->ensureIsNotRateLimited();
 
-        if ( ! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -49,7 +50,8 @@ class Login extends Component
 
         RateLimiter::clear($this->throttleKey());
 
-        $this->authenticate();
+        // Dispatch the Login event to capture the user who logs in
+        event(new AuthLogin('web', Auth::user(), $this->boolean('remember'))); // Use the aliased class name
 
         $this->session()->regenerate();
 

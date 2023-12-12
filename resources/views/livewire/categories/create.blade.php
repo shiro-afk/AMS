@@ -19,9 +19,9 @@
                     </div>
 
                     <div class="w-full">
-                        <x-button primary type="submit" class="w-full text-center"  wire:loading.attr="disabled">
+                        <button primary type="submit" class="w-full text-center mx-auto bg-indigo-500 border border-transparent text-white hover:bg-indigo-600 focus:ring-indigo-500 active:bg-indigo-900 focus:outline-none focus:border-indigo-900"  wire:loading.attr="disabled">
                             {{ __('Create') }}
-                        </x-button>
+                        </button>
                     </div>
                 </div>
             </form>

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Http\Livewire\Stats;
-
+use App\Models\Warehouse;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
@@ -17,9 +17,12 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use App\Models\User;
+use App\Models\Brand;
 
 class Transactions extends Component
 {
+
     public $typeChart = 'monthly';
 
     public $categoriesCount;
@@ -46,18 +49,26 @@ class Transactions extends Component
     public $salesTotal;
     public $stockValue;
     public $topSellingProducts;
+    public $warehouse;
+    public $warehouseCount;
+    public $userCount;
+    public $brandCount;
 
     protected $rules = [
         'start_date' => 'required|date|before:end_date',
         'end_date'   => 'required|date|after:start_date',
     ];
-    
+
     public function mount()
     {
         $this->startDate = now()->startOfYear()->format('Y-m-d');
         $this->endDate = now()->endOfDay()->format('Y-m-d');
 
+        $this->brandCount = Brand::count('id');
+
         $this->categoriesCount = Category::count('id');
+        $this->warehouseCount = warehouse::count('id');
+        $this->userCount = User::count('id');
 
         $this->productCount = Product::whereBetween('created_at', [$this->startDate, $this->endDate])->count();
         $this->supplierCount = Supplier::whereBetween('created_at', [$this->startDate, $this->endDate])->count();

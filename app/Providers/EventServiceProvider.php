@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Auth\Events\Login; // Import the Login event
+use App\Listeners\LogSuccessfulLogin; // Import the LogSuccessfulLogin listener
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -18,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        Login::class => [ // Add the Login event
+            LogSuccessfulLogin::class, // Add the LogSuccessfulLogin listener
         ],
     ];
 

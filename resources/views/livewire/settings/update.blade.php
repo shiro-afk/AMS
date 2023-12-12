@@ -5,9 +5,9 @@
                 {{ __('System Update') }}
             </x-button>
         @else
-            <x-button wire:click="checkForUpdates" primary type="button" @click="showProgressBar = true">
+           {{-- <x-button wire:click="checkForUpdates" primary type="button" @click="showProgressBar = true">
                 {{ __('Check For Updates') }}
-            </x-button>
+            </x-button>--}}
         @endif
 
         <div x-show="showConfirmationDialog" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">

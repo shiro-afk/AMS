@@ -1,4 +1,4 @@
-@props(['options', 'placeholder' => 'Choose option'])
+@props(['options', 'placeholder' => 'Choose Categories'])
 
 <div wire:ignore class="w-full">
     <select id="{{ $attributes['id'] }}"
@@ -7,7 +7,7 @@
         <option>
             {{ $placeholder }}
         </option>
-        
+
         @if (isset($attributes['multiple']))
             <option></option>
         @endif

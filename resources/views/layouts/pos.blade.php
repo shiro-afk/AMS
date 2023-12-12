@@ -22,7 +22,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     @include('includes.main-css')
 </head>
 
@@ -45,7 +45,7 @@
 
             <livewire:customers.create />
 
-            <x-settings-bar />
+           {{-- <x-settings-bar /> --}}
 
         </div>
     </div>

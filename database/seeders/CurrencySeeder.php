@@ -20,7 +20,7 @@ class CurrencySeeder extends Seeder
         Currency::create([
             'name'               => 'Dirham Marocain',
             'code'               => Str::upper('MAD'),
-            'symbol'             => 'DH',
+            'symbol'             => '₱',
             'thousand_separator' => ',',
             'decimal_separator'  => '.',
             'exchange_rate'      => null,

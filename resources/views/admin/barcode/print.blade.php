@@ -22,7 +22,7 @@
                     <img src="data:image/svg+xml;base64,{{ base64_encode($barcode['barcode']) }}" alt="barcode" />
 
                     <p style="font-size: 15px;color: #000;font-weight: bold;">
-                        {{ __('Price') }}: {{ $barcode['price'] }}DH
+                        {{ __('Price') }}: {{ $barcode['price'] }}₱
                     </p>
                 </div>
             @endforeach

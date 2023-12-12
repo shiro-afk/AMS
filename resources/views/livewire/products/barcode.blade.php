@@ -1,4 +1,4 @@
-<div>
+{{--<div>
     <div class="flex flex-row">
         <div class="w-full px-2">
             <livewire:search-product />
@@ -6,16 +6,16 @@
 
         <div class="w-full px-2">
             <x-validation-errors class="mb-4" :errors="$errors" />
-            <x-select-list :options="$this->warehouses" wire:model="warehouse_id" label="Warehouse" required class="mb-3" />
+            <x-select-list :options="$this->brands" wire:model="selectedBrandId" label="Select Brand" required class="mb-3" />
             <x-table>
                 <x-slot name="thead">
-                    <x-table.th>{{ __('Product Name') }}</x-table.th>
+                    <x-table.th>{{ __('Item Name') }}</x-table.th>
                     <x-table.th>{{ __('Price') }}</x-table.th>
                     <x-table.th>
                         {{ __('Quantity') }} <i class="bi bi-question-circle-fill text-info" data-toggle="tooltip"
                             data-placement="top" title="Max Quantity: 100"></i>
                     </x-table.th>
-                    <x-table.th>{{ __('Size') }}</x-table.th>
+                    {{--<x-table.th>{{ __('Size') }}</x-table.th>
                     <x-table.th></x-table.th>
                 </x-slot>
                 <x-table.tbody>
@@ -28,7 +28,7 @@
                                     <x-input wire:model="products.{{ $index }}.quantity" type="text"
                                         min="0" max="100" required />
                                 </x-table.td>
-                                <x-table.td>
+                                {{--<x-table.td>
                                     <select name="barcodeSize" id="barcodeSize"
                                         wire:model="products.{{ $index }}.barcodeSize">
                                         <option value="1">{{ __('Small') }}</option>
@@ -55,7 +55,7 @@
             </x-table>
             <div class="flex justify-center text-center mt-3">
                 <x-button wire:click="generateBarcodes" type="button" primary class="w-full">
-                    {{ __('Generate Barcodes') }}
+                    {{ __('Generate QRcodes') }}
                 </x-button>
             </div>
         </div>
@@ -63,32 +63,80 @@
     <div class="w-full px-2 py-6">
 
         <div wire:loading wire:target="generateBarcodes" class="w-full">
-            <div class="flex justify-center">">
+            <div class="flex justify-center">
                 <x-loading />
             </div>
         </div>
 
         @if (!empty($barcodes))
-            <div class="flex flex-wrap justify-center border-collapse" wire:loading.class="opacity-50">
-                @foreach ($barcodes as $barcode)
-                    <div class="lg:w-1/3 md:w-1/4 sm:w-1/2" style="border: 1px solid #ffffff; border-style: dashed;">
-                        <p class="text-black font-bold text-lg text-center my-2">
-                            {{ $barcode['name'] }}
-                        </p>
-                        <div class="flex justify-center">
-                            {!! $barcode['barcode'] !!}
-                        </div>
-                        <p class="text-black font-bold text-lg text-center my-2">
-                            {{ format_currency($barcode['price']) }}
-                        </p>
+        <div class="flex flex-wrap justify-center border-collapse" wire:loading.class="opacity-50" id="bc">
+            @foreach ($barcodes as $barcode)
+
+                <div class="lg:w-1/3 md:w-1/4 sm:w-1/2" style="border: 1px solid #ffffff; border-style: dashed;">
+                    <p class="text-black font-bold text-lg text-center my-2">
+                        {{ $barcode['name'] }}
+                    </p>
+                    <div class="flex justify-center">
+                    {!! QrCode::generate($barcode['c']); !!}
                     </div>
-                @endforeach
-            </div>
-            <div class="text-center my-3">
-                <x-button primary wire:click="downloadBarcodes" type="button">
-                    {{ __('Download PDF') }}
-                </x-button>
-            </div>
-        @endif
+                    <p class="text-black font-bold text-lg text-center my-2">
+                        {{ format_currency($barcode['price']) }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center my-3">
+            <x-button primary wire:click="downloadBarcodes" type="button" onclick="print()" >
+                {{ __('Download PDF') }}
+            </x-button>
+        </div>
+    @endif
     </div>
 </div>
+<script>
+    function print() {
+            var WinPrint = window.open();
+            var printContent = document.getElementById("bc");
+                WinPrint.document.write(printContent.innerHTML);
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+                window.location.reload();
+    };
+</script>--}}
+@if (!empty($categoryOptions))
+    <div id="bc">
+        PRINT CONTENTS HERE
+        <div class="w-full flex justify-start items-center">
+            <x-label for="category" :value="__('Filter by category')" />
+            <select wire:model="category_id" name="category_id" id="category_id"
+                class="w-full block py-2 px-3 ml-2 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-300 mr-3">
+                <option value="all"> {{ __('View All') }} </option>
+                @foreach ($categoryOptions as $index => $category)
+                    <option value="{{ $index }}">{{ $category }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+@else
+    <p>No categories available.</p>
+@endif
+
+<x-button primary wire:click="downloadBarcodes" type="button" onclick="print()" >
+    {{ __('Print QR Code(s)') }}
+</x-button>
+
+<script>
+    function print()
+{
+    var printwindow = window.open('', 'PRINT');
+    printwindow.document.write(document.getElementById("bc").innerHTML);
+    printwindow.document.close();
+    printwindow.focus();
+    printwindow.print();
+    printwindow.close();
+    window.location.reload();
+}
+</script>
+

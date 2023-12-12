@@ -30,37 +30,37 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
-                <input wire:model="selectPage" type="checkbox" />
+            <x-table.th >
+
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Products count') }}
+             <div class="text-center "> {{ __('Item count') }}</div>
             </x-table.th>
             <x-table.th>
-                {{ __('Actions') }}
+                <div class="text-center ">  {{ __('Actions') }}</div>
             </x-table.th>
             </tr>
         </x-slot>
         <x-table.tbody>
             @forelse($categories as $category)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $category->id }}">
-                    <x-table.td>
+                    <x-table.td class="p-2 text-center text-gray-800 ">
                         <input type="checkbox" value="{{ $category->id }}" wire:model="selected">
                     </x-table.td>
-                    <x-table.td>
-                        <button type="button" wire:click="showModal({{ $category->id }})">
+                    <x-table.td >
+                        <button type="info">
                             {{ $category->name }}
                         </button>
-                    </x-table.td>
-                    <x-table.td>
-                        <x-badge type="info">
+                    </x-table.td >
+                    <x-table.td class="p-2 text-center text-gray-800 " >
+                        <x-badge type="just-info">
                             {{ $category->products->count() }}
                         </x-badge>
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="text-center">
                         <x-dropdown
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <x-slot name="trigger">
@@ -70,13 +70,14 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link wire:click="showModal({{ $category->id }})"
+
+                               {{-- <x-dropdown-link wire:click="showModal({{ $category->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-eye"></i>
                                     {{ __('Show') }}
-                                </x-dropdown-link>
+                                </x-dropdown-link>--}}
                                 <x-dropdown-link wire:click="$emit('editModal', {{ $category->id }})"
-                                    wire:loading.attr="disabled">
+                                    wire:loading.attr="disabled" class="text-left">
                                     <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
@@ -136,7 +137,7 @@
     </x-modal>
     <!-- End Show Modal -->
 
-    {{-- Import modal --}}
+    {{-- Import modal
     <x-modal wire:model="importModal">
         <x-slot name="title">
             <div class="flex justify-between items-center">
@@ -166,7 +167,7 @@
             </form>
         </x-slot>
     </x-modal>
-    {{-- End Import modal --}}
+    End Import modal --}}
 
     <livewire:categories.create />
 

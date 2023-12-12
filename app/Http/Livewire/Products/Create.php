@@ -35,6 +35,12 @@ class Create extends Component
     public $productWarehouse = [];
 
     /** @var array */
+    protected $messages = [
+    'product.brand_id.required' => 'The school id field is required.',
+    'product.tax_type.required' => 'The Status id field is required.',
+    ];
+
+    /** @var array */
     protected $rules = [
         'product.name'                => 'required|string|min:3|max:255',
         'product.code'                => 'required|string|max:255',
@@ -45,11 +51,13 @@ class Create extends Component
         'productWarehouse.*.cost'     => 'numeric',
         'product.stock_alert'         => 'required|integer|min:0|max:192',
         'product.order_tax'           => 'nullable|integer|min:0|max:1192',
-        'product.tax_type'            => 'nullable|integer|min:0|max:100',
+        'product.tax_type'            => 'required|min:0|max:100',
         'product.note'                => 'nullable|string|max:1000',
         'product.category_id'         => 'required|integer|min:0|max:100',
-        'product.brand_id'            => 'nullable|integer|min:0|max:100',
+        'product.brand_id'            => 'required|integer|min:0|max:100',
         'product.featured'            => 'boolean',
+
+
 
     ];
 
@@ -63,7 +71,7 @@ class Create extends Component
         $this->product = new Product();
         $this->product->stock_alert = 10;
         $this->product->order_tax = 0;
-        $this->product->unit = 'pcs';
+        $this->product->unit = 'unit/s';
         $this->product->featured = false;
         $this->product->barcode_symbology = 'C128';
     }
@@ -84,7 +92,7 @@ class Create extends Component
         $this->product = new Product();
         $this->product->stock_alert = 10;
         $this->product->order_tax = 0;
-        $this->product->unit = 'pcs';
+        $this->product->unit = 'unit/s';
         $this->product->featured = false;
         $this->product->barcode_symbology = 'C128';
 
@@ -95,6 +103,9 @@ class Create extends Component
     {
         try {
             $validatedData = $this->validate();
+
+
+
 
             if ($this->image) {
                 $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();

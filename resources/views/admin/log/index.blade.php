@@ -69,9 +69,9 @@
                         x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0" class="bg-gray-100">
                         <td class="p-4">
-                            <code>
+                            <p>
                                 {{ json_decode($logJson) }}
-                            </code>
+                            </p>
                         </td>
                     </tr>
                 @endforeach

@@ -19,13 +19,12 @@ class Index extends Component
     use LivewireAlert;
     use Datatable;
 
-    /** @var mixed */
     public $user;
 
     /** @var array<string> */
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'delete',
+        'deleteUser',
     ];
 
     /** @var array<array<string>> */
@@ -74,7 +73,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(User $user)
+    public function deleteUser(User $user)
     {
         abort_if(Gate::denies('user_delete'), 403);
 

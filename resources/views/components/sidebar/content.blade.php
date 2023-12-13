@@ -108,7 +108,7 @@
         </x-sidebar.dropdown>
     @endcan--}}
 
-    @can('report_access')
+   {{-- @can('report_access')
         <x-sidebar.dropdown title="{{ __('Reports') }}" :active="request()->routeIs([
             'purchases-report.index',
             'sales-report.index',
@@ -125,7 +125,7 @@
 
             <x-sidebar.sublink title="{{ __('Report') }}" href="{{ route('purchases-report.index') }}"
                 :active="request()->routeIs('purchases-report.index')" />
-           {{-- <x-sidebar.sublink title="{{ __('Sale Report') }}" href="{{ route('sales-report.index') }}"
+            <x-sidebar.sublink title="{{ __('Sale Report') }}" href="{{ route('sales-report.index') }}"
                 :active="request()->routeIs('sales-report.index')" />
             <x-sidebar.sublink title="{{ __('Sale Return Report') }}" href="{{ route('sales-return-report.index') }}"
                 :active="request()->routeIs('sales-return-report.index')" />
@@ -134,10 +134,10 @@
             <x-sidebar.sublink title="{{ __('Purchases Return Report') }}"
                 href="{{ route('purchases-return-report.index') }}" :active="request()->routeIs('purchases-return-report.index')" />
             <x-sidebar.sublink title="{{ __('Profit Report') }}" href="{{ route('profit-loss-report.index') }}"
-                :active="request()->routeIs('profit-loss-report.index')" />--}}
+                :active="request()->routeIs('profit-loss-report.index')" />
 
         </x-sidebar.dropdown>
-    @endcan
+    @endcan--}}
 
    @can('user_access')
         <x-sidebar.dropdown title="{{ __('People') }}" :active="request()->routeIs('customers.*') ||

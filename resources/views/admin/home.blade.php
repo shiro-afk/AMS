@@ -107,7 +107,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Items Assigned per School'
+                text: 'Items per Category'
             },
             xAxis: {
                 categories: categories.map(category => category.name)
@@ -118,9 +118,12 @@
                 }
             },
             series: [{
-                name: 'Items',
+                name: 'Items per Category',
                 data: chartData
-            }]
+            }],
+            legend: {
+                enabled: false // Set this to false to hide the legend toggle button
+            }
         });
     });
 </script>
